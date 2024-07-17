@@ -1,0 +1,15 @@
+{
+    "azTenantId": "d7b42517-98d2-496f-9580-e05524978459",
+    "azClientId": "97dfa68f-0ff5-4931-99fc-2577489c6827",
+    "azClientSecret": "REPLACE_ME",
+    "azCertificateName":  "",
+    "azCertThumbprint":  "",
+    "azCertificatePrivateKeyLocation":  "",
+    "CredentialManifest": "https://verifiedid.did.msidentity.com/v1.0/tenants/d7b42517-98d2-496f-9580-e05524978459/verifiableCredentials/contracts/23e45ccd-df4e-207e-1f38-0f1a660183b3/manifest",
+    "DidAuthority": "did:web:did.smoogiee.com",
+    "acceptedIssuers": "did:web:did.smoogiee.com",
+    "CredentialType": "SandboxVCCredential",
+    "issuancePinCodeLength": null,
+    "sourcePhotoClaimName": "",
+    "matchConfidenceThreshold": null
+}

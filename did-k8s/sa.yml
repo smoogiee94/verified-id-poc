@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: did-sa
+  namespace: did
+  labels:
+    app: did
+    app.kubernetes.io/name: did
+    app.kubernetes.io/instance: did
+    app.kubernetes.io/version: "latest"
+automountServiceAccountToken: false

@@ -1,0 +1,62 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: app
+  namespace: app
+  labels:
+    app: app
+    app.kubernetes.io/name: app
+    app.kubernetes.io/instance: app
+    app.kubernetes.io/version: "latest"
+spec:
+  serviceName: app
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: app
+      app.kubernetes.io/instance: app
+  template:
+    metadata:
+      labels:
+        namespace: app
+        app: app
+        app.kubernetes.io/name: app
+        app.kubernetes.io/instance: app
+        app.kubernetes.io/version: "latest"
+    spec:
+      serviceAccountName: app-sa
+      tolerations:
+        []
+      nodeSelector:
+        {}
+      affinity:
+        {}
+      terminationGracePeriodSeconds: 120
+      #      initContainers:
+      containers:
+        - name: app
+          image: smoogiee/app:latest
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8080
+              name: app
+          env:
+            - name: TZ
+              value: "America/New_York"
+            - name: azTenantId
+              value: "d7b42517-98d2-496f-9580-e05524978459"
+            - name: azClientId
+              value: "c78be953-d4a3-407a-95fd-a26599f77f91"
+            - name: azClientSecret
+              value: "REPLACE_ME"
+            - name: DidAuthority
+              value: "did:web:did.smoogiee.com"
+            - name: clientName
+              value: "Sandbox VC Verified Credentials App"
+            - name: purpose
+              value: "To demo an Entra Verified ID OIDC flow"
+            - name: CredentialManifest
+              value: "https://verifiedid.did.msidentity.com/v1.0/tenants/d7b42517-98d2-496f-9580-e05524978459/verifiableCredentials/contracts/f25a28de-79d3-62fc-7cbd-6a47a7d37794/manifest"
+            - name: CredentialType
+              value: "SandboxVCCredential"
+            - name: acceptedIssuers
+              value: "did:web:did.smoogiee.com"

@@ -1,0 +1,30 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: wso2-ingress
+  namespace: wso2
+  annotations:
+    cert-manager.io/cluster-issuer: "letsencrypt-issuer"
+    acme.cert-manager.io/http01-edit-in-place: "true"
+  labels:
+    app: wso2-identity-server
+    app.kubernetes.io/name: wso2-identity-server
+    app.kubernetes.io/instance: wso2-identity-server
+    app.kubernetes.io/version: "latest"
+spec:
+  ingressClassName: nginx
+  tls:
+    - hosts:
+        - wso2.smoogiee.com
+      secretName: wso2-tls
+  rules:
+    - host: wso2.smoogiee.com
+      http:
+        paths:
+          - pathType: Prefix
+            path: "/"
+            backend:
+              service:
+                name: wso2-svc
+                port:
+                  number: 9443

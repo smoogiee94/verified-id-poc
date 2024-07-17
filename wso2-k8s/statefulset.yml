@@ -1,0 +1,62 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: wso2
+  namespace: wso2
+  labels:
+    app: wso2-identity-server
+    app.kubernetes.io/name: wso2-identity-server
+    app.kubernetes.io/instance: wso2-identity-server
+    app.kubernetes.io/version: "latest"
+spec:
+  serviceName: wso2-identity-server
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: wso2-identity-server
+      app.kubernetes.io/instance: wso2-identity-server
+  template:
+    metadata:
+      labels:
+        namespace: wso2
+        app: wso2-identity-server
+        app.kubernetes.io/name: wso2-identity-server
+        app.kubernetes.io/instance: wso2-identity-server
+        app.kubernetes.io/version: "latest"
+    spec:
+      serviceAccountName: wso2-sa
+      tolerations:
+        []
+      nodeSelector:
+        {}
+      affinity:
+        {}
+      terminationGracePeriodSeconds: 120
+      #      initContainers:
+      containers:
+        - name: wso2-identity-server
+          image: smoogiee/img:latest
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 9443
+              name: wso2
+          env:
+            - name: TZ
+              value: "America/New_York"
+#          volumeMounts:
+#            - name: wso2-pv
+#              mountPath: /mnt/pv
+#  volumeClaimTemplates:
+#    - metadata:
+#        name: wso2-pv
+#        namespace: wso2
+#        labels:
+#          app: wso2-identity-server
+#          app.kubernetes.io/name: wso2-identity-server
+#          app.kubernetes.io/instance: wso2-identity-server
+#          app.kubernetes.io/version: "latest"
+#      spec:
+#        accessModes: [ "ReadWriteOnce" ]
+#        storageClassName: wso2-pv
+#        resources:
+#          requests:
+#            storage: 10Gi

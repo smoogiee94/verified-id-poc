@@ -1,0 +1,30 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: did-ingress
+  namespace: did
+  annotations:
+    cert-manager.io/cluster-issuer: "letsencrypt-issuer"
+    acme.cert-manager.io/http01-edit-in-place: "true"
+  labels:
+    app: did
+    app.kubernetes.io/name: did
+    app.kubernetes.io/instance: did
+    app.kubernetes.io/version: "latest"
+spec:
+  ingressClassName: nginx
+  tls:
+    - hosts:
+        - did.smoogiee.com
+      secretName: did-tls
+  rules:
+    - host: did.smoogiee.com
+      http:
+        paths:
+          - pathType: Prefix
+            path: "/"
+            backend:
+              service:
+                name: did-svc
+                port:
+                  number: 8080

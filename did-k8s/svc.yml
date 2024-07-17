@@ -1,0 +1,20 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: did-svc
+  namespace: did
+  labels:
+    app: did
+    app.kubernetes.io/name: did
+    app.kubernetes.io/instance: did
+    app.kubernetes.io/version: "latest"
+spec:
+  type: ClusterIP
+  ports:
+    - port: 8080
+      targetPort: 8080
+      protocol: TCP
+      name: did
+  selector:
+    app.kubernetes.io/name: did
+    app.kubernetes.io/instance: did

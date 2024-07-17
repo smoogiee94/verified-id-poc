@@ -1,0 +1,7 @@
+namespace: app
+resources:
+  - namespace.yml
+  - ingress.yml
+  - sa.yml
+  - statefulset.yml
+  - svc.yml

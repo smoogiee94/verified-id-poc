@@ -1,0 +1,44 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: did
+  namespace: did
+  labels:
+    app: did
+    app.kubernetes.io/name: did
+    app.kubernetes.io/instance: did
+    app.kubernetes.io/version: "latest"
+spec:
+  serviceName: did
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: did
+      app.kubernetes.io/instance: did
+  template:
+    metadata:
+      labels:
+        namespace: did
+        app: did
+        app.kubernetes.io/name: did
+        app.kubernetes.io/instance: did
+        app.kubernetes.io/version: "latest"
+    spec:
+      serviceAccountName: did-sa
+      tolerations:
+        []
+      nodeSelector:
+        {}
+      affinity:
+        {}
+      terminationGracePeriodSeconds: 120
+      #      initContainers:
+      containers:
+        - name: did
+          image: smoogiee/did:latest
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8080
+              name: did
+          env:
+            - name: TZ
+              value: "America/New_York"

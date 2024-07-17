@@ -1,0 +1,7 @@
+namespace: wso2
+resources:
+  - namespace.yml
+  - ingress.yml
+  - sa.yml
+  - statefulset.yml
+  - svc.yml
